@@ -11,6 +11,10 @@
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
     <link rel="stylesheet" href="./bower_components/angular-material/angular-material.css"/>
     <link rel="stylesheet" href="assets/app.css"/>
+    <link rel="stylesheet" href="./bower_components/ng-mfb/mfb/src/mfb.css">
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/evil-icons/1.7.2/evil-icons.min.css">
+    <script src="//cdn.jsdelivr.net/evil-icons/1.7.2/evil-icons.min.js"></script>
   </head>
 
   <body ng-app="starterApp" layout="column" ng-controller="UserController as ul">
@@ -21,6 +25,18 @@
       </md-button>
       <h1>Angular Material - Starter App</h1>
     </md-toolbar>
+    <script type="text/ng-template" id="bla">
+    <li>
+      <a href="" data-mfb-label="{{label}}" class="mfb-component__button--child"
+         style="background: transparent; box-shadow: none;">
+         {{uu.aa}}
+         <md-button class="{{ul.button.class}} blaz  md-fab md-primary" aria-label={{label}}>
+         {{ul.button.class}}
+           <md-icon md-svg-icon="{{icon}}"></md-icon>
+         </md-button>
+      </a>
+    </li>
+    </script>
 
     <div flex layout="row">
 
@@ -39,11 +55,43 @@
           <md-icon md-svg-icon="{{ul.selected.avatar}}" class="avatar"></md-icon>
           <h2>{{ul.selected.name}}</h2>
           <p>{{ul.selected.content}}</p>
+          <p>    {{ul.button.class}}</p>
 
           <md-button class="share" md-no-ink ng-click="ul.share($event)" aria-label="Share">
             <md-icon md-svg-icon="share"></md-icon>
           </md-button>
         </md-content>
+
+        <nav mfb-menu position="br" effect="slidein-spring" label="hover here"
+             active-icon="close" resting-icon="menu"
+             template-url="ng-mfb-menu-md.tpl.html"
+             toggling-method="click">
+          <a mfb-button class="a" icon="menu" label="menu item"
+              template-url="bla"></a>
+         <a mfb-button class="b" icon="twitter" label="menu item"
+            template-url="ng-mfb-button-md.tpl.html"></a>
+          <a mfb-button class="c" icon="share" label="menu item"
+             template-url="ng-mfb-button-md.tpl.html"></a>
+        </nav>
+        <md-button class="md-fab md-primary" aria-label="Use Android">
+          <md-icon md-svg-src="img/icons/android.svg"></md-icon>
+        </md-button>
+
+
+        <script type="text/ng-template" id="myid">
+        <ul class="mfb-component--{{position}} mfb-{{effect}}"
+            data-mfb-toggle="{{togglingMethod}}" data-mfb-state="{{menuState}}">
+          <li class="mfb-component__wrap">
+            <a ng-click="clicked()" ng-mouseenter="hovered()" ng-mouseleave="hovered()"
+               ng-attr-data-mfb-label="{{label}}" class="mfb-component__button--main">
+             <i class="mfb-component__main-icon--resting {{resting}}"></i>
+             <i class="mfb-component__main-icon--active {{active}}"></i>
+            </a>
+            <ul class="mfb-component__list" ng-transclude>
+            </ul>
+        </li>
+        </ul>
+        </script>
 
     </div>
 
@@ -51,6 +99,7 @@
     <script src="./bower_components/angular-animate/angular-animate.js"></script>
     <script src="./bower_components/angular-aria/angular-aria.js"></script>
     <script type="text/javascript" src="./bower_components/angular-material/angular-material.js"></script>
+    <script src="./bower_components/ng-mfb/src/mfb-directive.js"></script>
 
     <script src="./src/users/Users.js"></script>
     <script src="./src/users/UserController.js"></script>
@@ -59,7 +108,7 @@
     <script type="text/javascript">
 
           angular
-              .module('starterApp', ['ngMaterial', 'users'])
+              .module('starterApp', ['ngMaterial', 'users', 'ng-mfb'])
               .config(function($mdThemingProvider, $mdIconProvider){
 
                   $mdIconProvider
@@ -69,10 +118,11 @@
                       .icon("google_plus", "./assets/svg/google_plus.svg" , 512)
                       .icon("hangouts"   , "./assets/svg/hangouts.svg"    , 512)
                       .icon("twitter"    , "./assets/svg/twitter.svg"     , 512)
+                      .icon("close"      , "./assets/svg/close.svg"       , 512)
                       .icon("phone"      , "./assets/svg/phone.svg"       , 512);
 
                       $mdThemingProvider.theme('default')
-                          .primaryPalette('brown')
+                          .primaryPalette('purple')
                           .accentPalette('red');
 
               });
